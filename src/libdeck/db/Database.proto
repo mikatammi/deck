@@ -47,7 +47,7 @@ message Track
     optional bool misc = 10 [default = false];
 }
 
-message Database
+message DatabaseFileProto
 {
     repeated string artist_names = 1;
     repeated string album_cover_filenames = 2;
