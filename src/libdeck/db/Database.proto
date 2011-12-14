@@ -43,13 +43,27 @@ message Track
     // Disc number for multidisc albums
     optional uint32 disc_number = 9;
 
+    // Genre ids for track
+    repeated uint32 genre_ids = 10;
+
     // Miscellannelous track
-    optional bool misc = 10 [default = false];
+    optional bool misc = 11 [default = false];
 }
 
 message DatabaseFileProto
 {
+    // Artist names
     repeated string artist_names = 1;
+
+    // Album cover filenames
     repeated string album_cover_filenames = 2;
+
+    // Album structures
     repeated Album albums = 3;
+
+    // Genre names
+    repeated string genre_names = 4;
+
+    // Track structures
+    repeated Track tracks = 5;
 }
