@@ -10,6 +10,13 @@ set(MY_SRCS
     db/Track.hpp
     db/TrackSet.cpp
     db/TrackSet.hpp
+    connection/Connection.cpp
+    connection/Connection.hpp
+    connection/Connection.proto
+    connection/Server.cpp
+    connection/Server.hpp
+    connection/ConnectionManager.cpp
+    connection/ConnectionManager.hpp
     MainPlayer.hpp
     MainPlayer.cpp
     Database.pb.h
