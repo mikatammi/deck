@@ -6,6 +6,10 @@ set(MY_SRCS
     db/Database.proto
     db/DatabaseManager.cpp
     db/DatabaseManager.hpp
+    db/Track.cpp
+    db/Track.hpp
+    db/TrackSet.cpp
+    db/TrackSet.hpp
     MainPlayer.hpp
     MainPlayer.cpp
     Database.pb.h

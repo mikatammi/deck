@@ -1,3 +1,4 @@
+package deck.db.proto;
 
 message Album
 {

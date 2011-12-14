@@ -1,6 +1,9 @@
 #ifndef DATABASEMANAGER_HPP
 #define DATABASEMANAGER_HPP
 
+namespace deck {
+namespace db {
+
 /// Manages multiple audio track databases from different sources.
 class DatabaseManager
 {
@@ -19,5 +22,8 @@ private:
     DatabaseManager& operator= (const DatabaseManager &);
 
 };
+
+}
+}
 
 #endif // DATABASEMANAGER_HPP
