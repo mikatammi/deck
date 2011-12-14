@@ -1,5 +1,5 @@
-#ifndef DATABASEMANAGER_H
-#define DATABASEMANAGER_H
+#ifndef DATABASEMANAGER_HPP
+#define DATABASEMANAGER_HPP
 
 /// Manages multiple audio track databases from different sources.
 class DatabaseManager
@@ -20,4 +20,4 @@ private:
 
 };
 
-#endif // DATABASEMANAGER_H
+#endif // DATABASEMANAGER_HPP
