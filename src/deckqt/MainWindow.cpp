@@ -1,14 +1,56 @@
 #include "MainWindow.hpp"
 #include "ui_MainWindow.h"
 
+#include "DatabaseWidget.hpp"
+#include "PlayListWidget.hpp"
+#include "TrackControlWidget.hpp"
+
+#include <QSplitter>
+#include <QVBoxLayout>
+#include <QToolBar>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui_(new Ui::MainWindow),
+    layout_(0),
+    splitter_(0),
+    databasewidget_(0),
+    playlistwidget_(0)
 {
-    ui->setupUi(this);
+    ui_->setupUi(this);
+
+    // Splitter t
+    splitter_ = new QSplitter(this);
+
+    databasewidget_ = new DatabaseWidget(this);
+    playlistwidget_ = new PlayListWidget(this);
+
+    splitter_->addWidget(databasewidget_);
+    splitter_->addWidget(playlistwidget_);
+
+    splitter_->setLineWidth(10);
+
+    layout_ = new QVBoxLayout();
+    layout_->addWidget(splitter_);
+
+    ui_->centralwidget->setLayout(layout_);
+
+
+    QToolBar * controltoolbar = new QToolBar("Control Tool Bar", this);
+    //controltoolbar->set
+    QVBoxLayout * controltoolbarlayout = new QVBoxLayout();
+    controltoolbar->setLayout(controltoolbarlayout);
+
+    TrackControlWidget * controlwidget = new TrackControlWidget(controltoolbar);
+    controltoolbarlayout->addWidget(controlwidget);
+    controltoolbar->setMinimumHeight(100);
+
+    addToolBar(Qt::TopToolBarArea, controltoolbar);
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+    delete splitter_;
+    delete layout_;
+    delete ui_;
 }
