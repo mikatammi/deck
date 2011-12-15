@@ -3,12 +3,12 @@
 
 TrackControlWidget::TrackControlWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::TrackControlWidget)
+    ui_(new Ui::TrackControlWidget)
 {
-    ui->setupUi(this);
+    ui_->setupUi(this);
 }
 
 TrackControlWidget::~TrackControlWidget()
 {
-    delete ui;
+    delete ui_;
 }
