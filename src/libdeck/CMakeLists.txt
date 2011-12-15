@@ -1,5 +1,10 @@
 cmake_minimum_required (VERSION 2.6)
 
+find_package(Boost 1.48.0 REQUIRED COMPONENTS filesystem)
+find_package(Protobuf 2.3.0 REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${PROTOBUF_INCLUDE_DIR})
+
 set(MY_SRCS
     db/Database.hpp
     db/Database.cpp
@@ -36,4 +41,8 @@ add_custom_command(
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
 add_library(deck SHARED ${MY_SRCS})
+
+target_link_libraries(deck ${Boost_LIBRARIES})
+target_link_libraries(deck ${PROTOBUF_LIBRARY})
