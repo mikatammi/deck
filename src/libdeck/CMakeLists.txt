@@ -15,10 +15,18 @@ set(LIBDECK_SRCS
     db/Database.hpp
     db/DatabaseManager.cpp
     db/DatabaseManager.hpp
+    db/Artist.cpp
+    db/Artist.hpp
+    db/Album.cpp
+    db/Album.hpp
     db/Track.cpp
     db/Track.hpp
     db/TrackSet.cpp
     db/TrackSet.hpp
+    db/TrackSourceInfo.cpp
+    db/TrackSourceInfo.hpp
+    db/PlayList.cpp
+    db/PlayList.hpp
     db/scanner/ScannerTrackInfo.cpp
     db/scanner/ScannerTrackInfo.hpp
     db/scanner/Scanner.cpp
