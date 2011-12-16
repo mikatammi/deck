@@ -37,13 +37,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     QToolBar * controltoolbar = new QToolBar("Control Tool Bar", this);
-    //controltoolbar->set
-    QVBoxLayout * controltoolbarlayout = new QVBoxLayout();
-    controltoolbar->setLayout(controltoolbarlayout);
 
     TrackControlWidget * controlwidget = new TrackControlWidget(controltoolbar);
-    controltoolbarlayout->addWidget(controlwidget);
-    controltoolbar->setMinimumHeight(100);
+    controltoolbar->addWidget(controlwidget);
 
     addToolBar(Qt::TopToolBarArea, controltoolbar);
 }
