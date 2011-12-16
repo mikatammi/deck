@@ -6,7 +6,7 @@ message Album
     required string name = 1;
 
     // Id for the artist of the album (if has)
-    optional uint32 artist_id = 2 [default = 0];
+    optional uint32 artist_id = 2;
 
     // Whether album is various artists or not
     optional bool various_artists = 3 [default = false];
