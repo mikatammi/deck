@@ -3,10 +3,17 @@
 
 #include "AbstractAudioOutput.hpp"
 
+namespace deck {
+namespace audio {
+namespace output {
+
 class OpenALOutput : public AbstractAudioOutput
 {
 public:
     OpenALOutput();
 };
 
+}
+}
+}
 #endif // OPENALOUTPUT_HPP

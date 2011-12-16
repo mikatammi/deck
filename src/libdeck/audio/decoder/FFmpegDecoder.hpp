@@ -3,10 +3,17 @@
 
 #include "AbstractAudioDecoder.hpp"
 
+namespace deck {
+namespace audio {
+namespace decoder {
+
 class FFmpegDecoder : public AbstractAudioDecoder
 {
 public:
     FFmpegDecoder();
 };
 
+}
+}
+}
 #endif // FFMPEGDECODER_HPP
