@@ -1,9 +1,11 @@
 cmake_minimum_required (VERSION 2.6)
 
-find_package(Boost 1.48.0 REQUIRED COMPONENTS filesystem)
 find_package(Protobuf 2.3.0 REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${PROTOBUF_INCLUDE_DIR})
+
+set(Boost_USE_MULTITHREADED ON)
+find_package(Boost 1.48.0 REQUIRED COMPONENTS filesystem thread)
+include_directories(${Boost_INCLUDE_DIRS})
 
 set(LIBDECK_PROTOS
     db/Database.proto
