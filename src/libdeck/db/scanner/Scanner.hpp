@@ -11,6 +11,7 @@
 #include <boost/thread/thread.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/future.hpp>
+#include <boost/filesystem/path.hpp>
 
 namespace deck {
 namespace db {
@@ -48,8 +49,15 @@ public:
     ScannerTrackInfoList get();
 
 private:
-    ScannerTrackInfoList main_thread();
-    void scan_gather_files();
+    Scanner(const Scanner&);
+    Scanner& operator= (const Scanner&);
+
+
+    static ScannerTrackInfoList main_thread(const std::string &pathname);
+    static std::list <ScannerTrackInfo::FileInfo>
+        scan_gather_files(const boost::filesystem::path &p);
+
+    std::string scanpath_;
 
     std::queue <std::string> filelist_;
 

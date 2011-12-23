@@ -4,8 +4,11 @@ find_package(Protobuf 2.3.0 REQUIRED)
 include_directories(${PROTOBUF_INCLUDE_DIR})
 
 set(Boost_USE_MULTITHREADED ON)
-find_package(Boost 1.48.0 REQUIRED COMPONENTS filesystem thread)
+find_package(Boost 1.48.0 REQUIRED COMPONENTS system filesystem thread unit_test_framework)
 include_directories(${Boost_INCLUDE_DIRS})
+
+include(FindPkgConfig)
+pkg_search_module(TAGLIB REQUIRED taglib)
 
 set(LIBDECK_PROTOS
     db/Database.proto
@@ -90,8 +93,10 @@ set(LIBDECK_SRCS
 PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${LIBDECK_PROTOS})
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${TAGLIB_INCLUDE_DIRS})
 
 add_library(deck SHARED ${LIBDECK_SRCS} ${PROTO_SRCS} ${PROTO_HDRS})
 
 target_link_libraries(deck ${Boost_LIBRARIES})
 target_link_libraries(deck ${PROTOBUF_LIBRARY})
+target_link_libraries(deck ${TAGLIB_LIBRARIES})
