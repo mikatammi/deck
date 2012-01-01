@@ -11,6 +11,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
+    mainplayer_(0),
     ui_(new Ui::MainWindow),
     layout_(0),
     splitter_(0),
@@ -42,6 +43,10 @@ MainWindow::MainWindow(QWidget *parent) :
     controltoolbar->addWidget(controlwidget);
 
     addToolBar(Qt::TopToolBarArea, controltoolbar);
+
+    mainplayer_ = new deck::MainPlayer();
+
+    Q_ASSERT(mainplayer != 0);
 }
 
 MainWindow::~MainWindow()

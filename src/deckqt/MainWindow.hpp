@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
+#include "../libdeck/MainPlayer.hpp"
 #include <QMainWindow>
 
 namespace Ui {
@@ -21,6 +22,8 @@ public:
     ~MainWindow();
     
 private:
+    deck::MainPlayer * mainplayer_;
+
     Ui::MainWindow* ui_;
 
     QVBoxLayout* layout_;
