@@ -51,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    delete mainplayer_;
     delete splitter_;
     delete layout_;
     delete ui_;
