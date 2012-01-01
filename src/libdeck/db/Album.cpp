@@ -3,8 +3,19 @@
 namespace deck {
 namespace db {
 
-Album::Album()
+Album::Album(const std::string &name):
+    name_(name)
 {
+}
+
+void Album::setName(const std::string &name)
+{
+    name_ = name;
+}
+
+std::string Album::getName() const
+{
+    return name_;
 }
 
 }
