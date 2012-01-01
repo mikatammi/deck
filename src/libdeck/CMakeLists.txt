@@ -3,12 +3,23 @@ cmake_minimum_required (VERSION 2.6)
 find_package(Protobuf 2.3.0 REQUIRED)
 include_directories(${PROTOBUF_INCLUDE_DIR})
 
+set(BOOSTCOMPONENTS system filesystem thread)
+
+if(NOT ANDROID)
+    set(BOOSTCOMPONENTS ${BOOSTCOMPONENTS} unit_test_framework)
+endif()
+
 set(Boost_USE_MULTITHREADED ON)
-find_package(Boost 1.48.0 REQUIRED COMPONENTS system filesystem thread unit_test_framework)
+find_package(Boost 1.45.0 REQUIRED COMPONENTS ${BOOSTCOMPONENTS})
 include_directories(${Boost_INCLUDE_DIRS})
 
-include(FindPkgConfig)
-pkg_search_module(TAGLIB REQUIRED taglib)
+if(NOT ANDROID)
+    include(FindPkgConfig)
+    pkg_search_module(TAGLIB REQUIRED taglib)
+else()
+    set(TAGLIB_LIBRARIES ${CMAKE_CURRENT_SOURCE_DIR}/../../android-libs/taglib/libs/armeabi-v7a/libtag.so)
+    set(TAGLIB_INCLUDE_DIRS ../../android-libs/taglib/include)
+endif()
 
 set(LIBDECK_PROTOS
     db/Database.proto
