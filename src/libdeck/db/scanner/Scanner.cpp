@@ -1,4 +1,4 @@
-#define BOOST_FILESYSTEM_VERSION 3
+#define BOOST_FILESYSTEM_VERSION 2
 
 #include "Scanner.hpp"
 
@@ -142,7 +142,7 @@ std::list <ScannerTrackInfo::FileInfo>
     {
         ScannerTrackInfo::FileInfo fi;
 
-        fi.filename = p.c_str();
+        fi.filename = p.string();
         fi.filesize = boost::filesystem::file_size(p);
         fi.lastmodified = boost::filesystem::last_write_time(p);
 
