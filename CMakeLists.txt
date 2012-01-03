@@ -6,4 +6,7 @@ set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -pedantic" )
 ENABLE_TESTING()
 
 add_subdirectory(src)
-add_subdirectory(tests)
+
+if(NOT ANDROID)
+    add_subdirectory(tests)
+endif()
