@@ -40,7 +40,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="btnPlayPause">
+    <widget class="QPushButton" name="btnPlay">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
@@ -49,6 +49,19 @@
      </property>
      <property name="text">
       <string>Play</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="btnPause">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Pause</string>
      </property>
     </widget>
    </item>

@@ -21,9 +21,16 @@ public:
     explicit TrackControlWidget(QWidget *parent = 0);
 
     ~TrackControlWidget();
+
+signals:
+    void play();
+    void pause();
+    void stop();
+    void prev();
+    void next();
     
 private:
-    Ui::TrackControlWidget *ui_;
+    Ui::TrackControlWidget* ui_;
 };
 
 #endif // TRACKCONTROLWIDGET_HPP
