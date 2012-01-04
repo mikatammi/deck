@@ -12,6 +12,7 @@ set(DECKQT_SRCS
     PlayListView.cpp
     PlayListModel.cpp
     OptionsDialog.cpp
+    FileSystemModel.cpp
     GenericOptionsWidget.cpp
     DatabaseOptionsWidget.cpp
     PeerOptionsWidget.cpp
@@ -27,6 +28,7 @@ set(DECKQT_MOC_HDRS
     PlayListView.hpp
     PlayListModel.hpp
     OptionsDialog.hpp
+    FileSystemModel.hpp
     GenericOptionsWidget.hpp
     DatabaseOptionsWidget.hpp
     PeerOptionsWidget.hpp
