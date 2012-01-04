@@ -1,14 +1,20 @@
 #include "DatabaseOptionsWidget.hpp"
 #include "ui_DatabaseOptionsWidget.h"
 
+#include "FileSystemModel.hpp"
+
 DatabaseOptionsWidget::DatabaseOptionsWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::DatabaseOptionsWidget)
+    ui_(new Ui::DatabaseOptionsWidget)
 {
-    ui->setupUi(this);
+    ui_->setupUi(this);
+
+    FileSystemModel* model = new FileSystemModel(QSet <QString> (), this);
+
+    ui_->treeView->setModel(model);
 }
 
 DatabaseOptionsWidget::~DatabaseOptionsWidget()
 {
-    delete ui;
+    delete ui_;
 }

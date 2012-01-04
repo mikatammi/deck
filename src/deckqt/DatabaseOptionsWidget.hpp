@@ -16,7 +16,7 @@ public:
     ~DatabaseOptionsWidget();
     
 private:
-    Ui::DatabaseOptionsWidget *ui;
+    Ui::DatabaseOptionsWidget *ui_;
 };
 
 #endif // DATABASEOPTIONSWIDGET_HPP
