@@ -21,6 +21,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     
+private slots:
+    void showOptionsDialog();
+
 private:
     deck::MainPlayer * mainplayer_;
 

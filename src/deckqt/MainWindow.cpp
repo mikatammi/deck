@@ -5,6 +5,8 @@
 #include "PlayListWidget.hpp"
 #include "TrackControlWidget.hpp"
 
+#include "OptionsDialog.hpp"
+
 #include <QSplitter>
 #include <QVBoxLayout>
 #include <QToolBar>
@@ -47,6 +49,8 @@ MainWindow::MainWindow(QWidget *parent) :
     mainplayer_ = new deck::MainPlayer();
 
     Q_ASSERT(mainplayer != 0);
+
+    connect(ui_->actionOptions, SIGNAL(triggered()), SLOT(showOptionsDialog()));
 }
 
 MainWindow::~MainWindow()
@@ -55,4 +59,10 @@ MainWindow::~MainWindow()
     delete splitter_;
     delete layout_;
     delete ui_;
+}
+
+void MainWindow::showOptionsDialog()
+{
+    OptionsDialog options(mainplayer_);
+    options.exec();
 }
