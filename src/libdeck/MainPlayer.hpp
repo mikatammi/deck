@@ -3,6 +3,8 @@
 
 namespace deck {
 
+class Settings;
+
 // Forward declaration for AudioManager
 namespace audio {
 class AudioManager;
@@ -66,6 +68,8 @@ private:
     MainPlayer& operator= (const MainPlayer&);
 
     PlayState state_;
+
+    Settings * settings_;
 
     audio::AudioManager * audiomanager_;
     connection::ConnectionManager * connectionmanager_;

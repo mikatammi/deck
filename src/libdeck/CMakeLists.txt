@@ -97,6 +97,8 @@ set(LIBDECK_SRCS
     audio/AudioManager.hpp
     MainPlayer.cpp
     MainPlayer.hpp
+    Settings.cpp
+    Settings.hpp
     ${LIBDECK_PROTOS}
 )
 

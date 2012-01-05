@@ -1,4 +1,5 @@
 #include "MainPlayer.hpp"
+#include "Settings.hpp"
 #include "audio/AudioManager.hpp"
 #include "connection/ConnectionManager.hpp"
 #include "db/DatabaseManager.hpp"
@@ -11,11 +12,15 @@ namespace deck
 
 MainPlayer::MainPlayer() :
     state_(STOPPED),
+    settings_(0),
     audiomanager_(0),
     connectionmanager_(0),
     databasemanager_(0),
     activeplaylist_(0)
 {
+    // New settings manager
+    settings_ = new Settings();
+
     // Create new manager objects for audio, connections and database
     audiomanager_ = new audio::AudioManager();
     connectionmanager_ = new connection::ConnectionManager();
