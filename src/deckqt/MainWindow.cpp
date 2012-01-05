@@ -56,9 +56,16 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete mainplayer_;
+    mainplayer_ = 0;
+
     delete splitter_;
+    splitter_ = 0;
+
     delete layout_;
+    layout_ = 0;
+
     delete ui_;
+    ui_ = 0;
 }
 
 void MainWindow::showOptionsDialog()
