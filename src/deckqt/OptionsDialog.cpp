@@ -19,9 +19,12 @@ OptionsDialog::OptionsDialog(deck::MainPlayer* mainplayer, QWidget *parent) :
 {
     ui_->setupUi(this);
 
+    // TODO: Get database directories from mainplayer class
+    QSet <QString> database_selected_dirs;
+
     // Allocate tab widgets
     genericoptions_ = new GenericOptionsWidget(this);
-    databaseoptions_ = new DatabaseOptionsWidget(this);
+    databaseoptions_ = new DatabaseOptionsWidget(database_selected_dirs, this);
     peeroptions_ = new PeerOptionsWidget(this);
 
     // Add new widgets as tabs
