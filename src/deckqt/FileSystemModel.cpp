@@ -72,3 +72,9 @@ bool FileSystemModel::setData(const QModelIndex &index, const QVariant &value,
     // Use parent class setData function to set any other types of data
     return QFileSystemModel::setData(index, value, role);
 }
+
+int FileSystemModel::columnCount(const QModelIndex &parent) const
+{
+    // Return column count as 1 to disable other columns
+    return 1;
+}
