@@ -9,6 +9,8 @@ namespace Ui {
 class DatabaseOptionsWidget;
 }
 
+class FileSystemModel;
+
 /// Database Options Tab for use in OptionsDialog
 class DatabaseOptionsWidget : public QWidget
 {
@@ -21,9 +23,14 @@ public:
     explicit DatabaseOptionsWidget(QSet <QString> selected_dirs,
                                    QWidget *parent = 0);
     ~DatabaseOptionsWidget();
+
+    /// Gets selected directories from widget
+    /// @return Selected directories in tree view
+    QSet <QString> getSelectedDirectories() const;
     
 private:
-    Ui::DatabaseOptionsWidget *ui_;
+    Ui::DatabaseOptionsWidget* ui_;
+    FileSystemModel* fsmodel_;
 };
 
 #endif // DATABASEOPTIONSWIDGET_HPP

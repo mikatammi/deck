@@ -44,10 +44,16 @@ OptionsDialog::OptionsDialog(deck::MainPlayer* mainplayer, QWidget *parent) :
 OptionsDialog::~OptionsDialog()
 {
     delete genericoptions_;
+    genericoptions_ = 0;
+
     delete databaseoptions_;
+    databaseoptions_ = 0;
+
     delete peeroptions_;
+    peeroptions_ = 0;
 
     delete ui_;
+    ui_ = 0;
 }
 
 void OptionsDialog::onOK()
