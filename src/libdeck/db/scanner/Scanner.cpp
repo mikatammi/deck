@@ -26,6 +26,8 @@ Scanner::Scanner(const std::string &path) :
 
 Scanner::~Scanner()
 {
+    // Stop scanner before deletion
+    stop();
 }
 
 void Scanner::start()
@@ -39,6 +41,8 @@ void Scanner::start()
 
 void Scanner::stop()
 {
+    // TODO: Stopping
+    wait();
 }
 
 void Scanner::wait()
@@ -55,13 +59,6 @@ bool Scanner::isReady() const
 
 ScannerTrackInfoList Scanner::get()
 {
-    if(/* TODO: Verify process started */ false)
-    {
-        // Some sort of fail.
-        // Returning empty list.
-        return ScannerTrackInfoList();
-    }
-
     // Wait for result
     wait();
 
