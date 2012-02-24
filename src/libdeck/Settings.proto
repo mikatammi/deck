@@ -1,0 +1,6 @@
+package deck.proto;
+
+message Settings
+{
+    repeated string database_directories = 1;
+}

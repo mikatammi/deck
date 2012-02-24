@@ -2,6 +2,9 @@
 
 #include <boost/assert.hpp>
 #include <boost/thread/locks.hpp>
+#include <boost/foreach.hpp>
+
+#include <fstream>
 
 #if defined(ANDROID)
     // TODO
@@ -23,49 +26,118 @@ namespace deck {
 
 Settings::Settings() :
     settings_mutex_(),
-    settings_map_()
+    settings_proto_(0)
 {
+}
+
+Settings::~Settings()
+{
+    clear();
+}
+
+void Settings::init(bool defaults)
+{
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+    // Lock mutex for this class instance
+    boost::lock_guard <boost::mutex> lock(settings_mutex_);
+
+    clear();
+
+    // Initialize settings proto
+    settings_proto_ = new proto::Settings();
+
+    // TODO: Set defaults
+    if(defaults)
+    {
+    }
+}
+
+void Settings::clear()
+{
+    // Free settings proto, if allocated
+    if(settings_proto_ != 0)
+    {
+        delete settings_proto_;
+        settings_proto_ = 0;
+    }
 }
 
 void Settings::load(const std::string& filename)
 {
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
+
     // Lock mutex for this class instance
     boost::lock_guard <boost::mutex> lock(settings_mutex_);
 
+    // Initialize settings proto
+    init(false);
+
+    // Parse settings file to protobuf structure
+    std::ifstream settings_file(filename.c_str(),
+                                std::ifstream::in | std::ifstream::binary);
+
+
+    // Parse stream only if file was opened correctly,
+    // otherwise use defaults
+    if(settings_file.is_open())
+    {
+        settings_proto_->ParseFromIstream(&settings_file);
+    }
+    else
+    {
+        init(true);
+    }
+
+    settings_file.close();
 }
 
 void Settings::save(const std::string& filename)
 {
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
+
     // Lock mutex for this class instance
     boost::lock_guard <boost::mutex> lock(settings_mutex_);
 
+    // TODO
 }
 
-void Settings::setValue(std::string key, std::string value)
+void Settings::setDatabaseDirectories(std::set<std::string> dirs)
 {
     // Lock mutex for this class instance
     boost::lock_guard <boost::mutex> lock(settings_mutex_);
 
-    // Set value to settings map
-    settings_map_[key] = value;
-}
-
-std::string Settings::getValue(std::string key) const
-{
-    // Lock mutex for this class instance
-    boost::lock_guard <boost::mutex> lock(settings_mutex_);
-
-    // Try to find key value from settings map
-    SettingsMap::const_iterator it = settings_map_.find(key);
-
-    // If found, return it
-    if (it != settings_map_.end())
+    if(settings_proto_ != 0)
     {
-        return (*it).second;
-    }
+        // Clear old values
+        settings_proto_->clear_database_directories();
 
-    // Otherwise return empty string
-    return std::string();
+        // Store strings from set to protobuf structure
+        BOOST_FOREACH(std::string dir, dirs)
+        {
+            std::string * str = settings_proto_->add_database_directories();
+            (*str) = dir;
+        }
+    }
+}
+
+std::set <std::string> Settings::getDatabaseDirectories() const
+{
+    // Lock mutex for this class instance
+    boost::lock_guard <boost::mutex> lock(settings_mutex_);
+
+    if(settings_proto_ != 0)
+    {
+        std::set <std::string> retval;
+
+        // Read strings to return value set
+        BOOST_FOREACH(std::string dir, settings_proto_->database_directories())
+        {
+            retval.insert(dir);
+        }
+
+        return retval;
+    }
 }
 
 std::string Settings::getHomeDir()

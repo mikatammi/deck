@@ -1,9 +1,11 @@
 #ifndef SETTINGS_HPP
 #define SETTINGS_HPP
 
-#include <map>
+#include <set>
 #include <string>
 #include <boost/thread/mutex.hpp>
+
+#include "Settings.pb.h"
 
 namespace deck {
 
@@ -13,22 +15,31 @@ public:
     /// Constructor for Settings
     explicit Settings();
 
+    /// Destructor for Settings
+    ~Settings();
+
+    /// Initializes internal protobuf datastructure and optionally defaults.
+    /// Used in cases such as settings file doesn't exist or corrupted.
+    void init(bool defaults = true);
+
+    /// Clears settings datastructures
+    void clear();
+
     /// Loads settings from disk
-    /// @param filename File for sett
+    /// @param filename File for settings
     void load(const std::string& filename = "");
 
     /// Flushes settings to disk
+    /// @param filename File for settings
     void save(const std::string& filename = "");
 
-    /// Sets key value
-    /// @param key Key string
-    /// @param value Value string
-    void setValue(std::string key, std::string value);
+    /// Sets directories to be scanned to database
+    /// @param dirs Directories
+    void setDatabaseDirectories(std::set <std::string> dirs);
 
-    /// Gets setting value by key
-    /// @param key Key string
-    /// @returns Value string
-    std::string getValue(std::string key) const;
+    /// Gets directories to be scanned to database
+    /// @return Set of directory strings
+    std::set <std::string> getDatabaseDirectories() const;
 
     /// Gets current user's home directory
     /// @return Home directory as string
@@ -40,9 +51,7 @@ public:
 
 private:
     mutable boost::mutex settings_mutex_;
-
-    typedef std::map <std::string, std::string> SettingsMap;
-    SettingsMap settings_map_;
+    proto::Settings* settings_proto_;
 };
 
 }

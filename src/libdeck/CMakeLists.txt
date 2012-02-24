@@ -24,6 +24,7 @@ endif()
 set(LIBDECK_PROTOS
     db/Database.proto
     connection/Connection.proto
+    Settings.proto
 )
 
 set(LIBDECK_SRCS

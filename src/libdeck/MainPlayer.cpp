@@ -20,6 +20,7 @@ MainPlayer::MainPlayer() :
 {
     // New settings manager
     settings_ = new Settings();
+    settings_->init();
 
     // Create new manager objects for audio, connections and database
     audiomanager_ = new audio::AudioManager();
