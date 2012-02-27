@@ -5,9 +5,11 @@
 #include <string>
 #include <boost/thread/mutex.hpp>
 
-#include "Settings.pb.h"
-
 namespace deck {
+
+namespace proto {
+    class Settings;
+}
 
 class Settings
 {

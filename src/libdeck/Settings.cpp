@@ -6,6 +6,8 @@
 
 #include <fstream>
 
+#include "Settings.pb.h"
+
 #if defined(ANDROID)
     // TODO
 #elif defined(LINUX) or defined(APPLE) or defined(UNIX)
