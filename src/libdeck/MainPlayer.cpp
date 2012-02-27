@@ -91,4 +91,9 @@ void MainPlayer::setActivePlayList(db::PlayList *playlist)
     BOOST_ASSERT(activeplaylist_ != 0);
 }
 
+Settings * MainPlayer::getSettings()
+{
+    return settings_;
+}
+
 }

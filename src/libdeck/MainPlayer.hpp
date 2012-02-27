@@ -63,6 +63,10 @@ public:
     /// @param playlist Pointer to playlist
     void setActivePlayList(db::PlayList * playlist);
 
+    /// Get Settings manager object
+    /// @return Pointer to settings object
+    Settings * getSettings();
+
 private:
     MainPlayer(const MainPlayer&);
     MainPlayer& operator= (const MainPlayer&);
