@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 2.6)
 
-include_directories(../../src/libdeck)
+include_directories(../src/libdeck)
 
 add_executable(test_scannertrackinfo test_scannertrackinfo.cpp)
 add_executable(test_scanner test_scanner.cpp)
