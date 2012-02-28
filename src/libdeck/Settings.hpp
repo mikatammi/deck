@@ -43,15 +43,26 @@ public:
     /// @return Set of directory strings
     std::set <std::string> getDatabaseDirectories() const;
 
+
     /// Gets current user's home directory
     /// @return Home directory as string
     static std::string getHomeDir();
+
+    /// Gets config directory for current operating system
+    /// @return Config directory
+    static std::string getConfigDir();
+
+    /// Creates directory to path given by getConfigDir()
+    static void createConfigDir();
 
     /// Gets config default location
     /// @return Config file default location as string
     static std::string getConfigDefaultLocation();
 
 private:
+    void internal_init(bool defaults = true);
+    void internal_clear();
+
     mutable boost::mutex settings_mutex_;
     proto::Settings* settings_proto_;
 };

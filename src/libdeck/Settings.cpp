@@ -3,6 +3,7 @@
 #include <boost/assert.hpp>
 #include <boost/thread/locks.hpp>
 #include <boost/foreach.hpp>
+#include <boost/filesystem/v3/operations.hpp>
 
 #include <fstream>
 
@@ -44,7 +45,12 @@ void Settings::init(bool defaults)
     // Lock mutex for this class instance
     boost::lock_guard <boost::mutex> lock(settings_mutex_);
 
-    clear();
+    internal_init(defaults);
+}
+
+void Settings::internal_init(bool defaults)
+{
+    internal_clear();
 
     // Initialize settings proto
     settings_proto_ = new proto::Settings();
@@ -56,6 +62,14 @@ void Settings::init(bool defaults)
 }
 
 void Settings::clear()
+{
+    // Lock mutex for this class instance
+    boost::lock_guard <boost::mutex> lock(settings_mutex_);
+
+    internal_clear();
+}
+
+void Settings::internal_clear()
 {
     // Free settings proto, if allocated
     if(settings_proto_ != 0)
@@ -73,9 +87,9 @@ void Settings::load(const std::string& filename)
     boost::lock_guard <boost::mutex> lock(settings_mutex_);
 
     // Initialize settings proto
-    init(false);
+    internal_init(false);
 
-    // Parse settings file to protobuf structure
+    // Open settings file input stream
     std::ifstream settings_file(filename.c_str(),
                                 std::ifstream::in | std::ifstream::binary);
 
@@ -88,7 +102,7 @@ void Settings::load(const std::string& filename)
     }
     else
     {
-        init(true);
+        internal_init(true);
     }
 
     settings_file.close();
@@ -101,7 +115,19 @@ void Settings::save(const std::string& filename)
     // Lock mutex for this class instance
     boost::lock_guard <boost::mutex> lock(settings_mutex_);
 
-    // TODO
+    createConfigDir();
+
+    // Opening settings file output stream
+    std::ofstream settings_file(filename.c_str(),
+                                std::ofstream::out | std::ofstream::binary);
+
+    // Write file to stream only if it is opened
+    if(settings_file.is_open())
+    {
+        settings_proto_->SerializeToOstream(&settings_file);
+    }
+
+    settings_file.close();
 }
 
 void Settings::setDatabaseDirectories(std::set<std::string> dirs)
@@ -188,7 +214,7 @@ std::string Settings::getHomeDir()
     return retval;
 }
 
-std::string Settings::getConfigDefaultLocation()
+std::string Settings::getConfigDir()
 {
     std::string retval;
 
@@ -207,6 +233,16 @@ std::string Settings::getConfigDefaultLocation()
     BOOST_ASSERT(retval.length() > 0);
 
     return retval;
+}
+
+void Settings::createConfigDir()
+{
+    boost::filesystem3::create_directory(getConfigDir());
+}
+
+std::string Settings::getConfigDefaultLocation()
+{
+    return getConfigDir() + "/settings.bin";
 }
 
 }
