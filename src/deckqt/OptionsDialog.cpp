@@ -6,8 +6,12 @@
 #include "PeerOptionsWidget.hpp"
 
 #include "MainPlayer.hpp"
+#include "Settings.hpp"
 
 #include <QPushButton>
+#include <boost/foreach.hpp>
+#include <set>
+#include <string>
 
 OptionsDialog::OptionsDialog(deck::MainPlayer* mainplayer, QWidget *parent) :
     QDialog(parent),
@@ -19,8 +23,13 @@ OptionsDialog::OptionsDialog(deck::MainPlayer* mainplayer, QWidget *parent) :
 {
     ui_->setupUi(this);
 
-    // TODO: Get database directories from mainplayer class
+    // Conversion from std::set<std::string> to QSet<QString>
     QSet <QString> database_selected_dirs;
+    BOOST_FOREACH(std::string str,
+                  mainplayer_->getSettings()->getDatabaseDirectories())
+    {
+        database_selected_dirs.insert(QString(str.c_str()));
+    }
 
     // Allocate tab widgets
     genericoptions_ = new GenericOptionsWidget(this);
@@ -66,5 +75,17 @@ void OptionsDialog::onOK()
 
 void OptionsDialog::onApply()
 {
-    // TODO: Save settings
+    deck::Settings* s = mainplayer_->getSettings();
+
+    // Conversion from QSet<QString> to std::set<std::string>
+    std::set <std::string> selecteddirs;
+    BOOST_FOREACH(QString str, databaseoptions_->getSelectedDirectories())
+    {
+        selecteddirs.insert(str.toStdString());
+    }
+
+    s->setDatabaseDirectories(selecteddirs);
+
+    // Save settings
+    s->save(s->getConfigDefaultLocation());
 }
