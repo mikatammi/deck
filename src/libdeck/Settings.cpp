@@ -115,19 +115,22 @@ void Settings::save(const std::string& filename)
     // Lock mutex for this class instance
     boost::lock_guard <boost::mutex> lock(settings_mutex_);
 
-    createConfigDir();
-
-    // Opening settings file output stream
-    std::ofstream settings_file(filename.c_str(),
-                                std::ofstream::out | std::ofstream::binary);
-
-    // Write file to stream only if it is opened
-    if(settings_file.is_open())
+    if(settings_proto_ != 0)
     {
-        settings_proto_->SerializeToOstream(&settings_file);
-    }
+        createConfigDir();
 
-    settings_file.close();
+        // Opening settings file output stream
+        std::ofstream settings_file(filename.c_str(),
+                                    std::ofstream::out | std::ofstream::binary);
+
+        // Write file to stream only if it is opened
+        if(settings_file.is_open())
+        {
+            settings_proto_->SerializeToOstream(&settings_file);
+        }
+
+        settings_file.close();
+    }
 }
 
 void Settings::setDatabaseDirectories(std::set<std::string> dirs)
