@@ -12,9 +12,13 @@ BOOST_AUTO_TEST_CASE( SettingsTest )
     s2.init(false);
     const std::string tmpconfig("/tmp/tmpAQWERT.bin");
     std::string str("aqwerth54eg/ge21/qwefsdf/ERDGF");
+
     std::set <std::string> strset;
     strset.insert(str);
 
+    std::string nodename("NameOfNode");
+
+    s0.setNodeName(nodename);
     s0.setDatabaseDirectories(strset);
     s0.save(tmpconfig);
 
@@ -22,6 +26,9 @@ BOOST_AUTO_TEST_CASE( SettingsTest )
     s1.save(tmpconfig);
 
     s2.load(tmpconfig);
+
+    BOOST_CHECK_EQUAL(s0.getNodeName(), s1.getNodeName());
+    BOOST_CHECK_EQUAL(s1.getNodeName(), s2.getNodeName());
 
     BOOST_CHECK_EQUAL(*(s0.getDatabaseDirectories().begin()), str);
     BOOST_CHECK_EQUAL(*(s0.getDatabaseDirectories().begin()),
@@ -38,6 +45,7 @@ BOOST_AUTO_TEST_CASE( SettingsTest )
 
     s0.clear();
     BOOST_CHECK_EQUAL(s0.getDatabaseDirectories().size(), 0);
+    BOOST_CHECK_EQUAL(s0.getNodeName(), "");
 
     s0.load(tmpconfig);
     BOOST_CHECK_EQUAL(*(s0.getDatabaseDirectories().begin()), str);

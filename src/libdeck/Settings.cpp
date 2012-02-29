@@ -171,6 +171,35 @@ std::set <std::string> Settings::getDatabaseDirectories() const
     return retval;
 }
 
+void Settings::setNodeName(std::string nodename)
+{
+    // Lock mutex for this class instance
+    boost::lock_guard <boost::mutex> lock(settings_mutex_);
+
+    if(settings_proto_ != 0)
+    {
+        settings_proto_->set_nodename(nodename);
+    }
+}
+
+std::string Settings::getNodeName() const
+{
+    // Lock mutex for this class instance
+    boost::lock_guard <boost::mutex> lock(settings_mutex_);
+
+    std::string retval;
+
+    if(settings_proto_ != 0)
+    {
+        if(settings_proto_->has_nodename())
+        {
+            retval = settings_proto_->nodename();
+        }
+    }
+
+    return retval;
+}
+
 std::string Settings::getHomeDir()
 {
     std::string retval;

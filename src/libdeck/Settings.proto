@@ -3,4 +3,5 @@ package deck.proto;
 message Settings
 {
     repeated string database_directories = 1;
+    optional string nodename = 2;
 }

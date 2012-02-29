@@ -43,6 +43,13 @@ public:
     /// @return Set of directory strings
     std::set <std::string> getDatabaseDirectories() const;
 
+    /// Sets NodeName for this client
+    /// @param nodename Nodename in string
+    void setNodeName(std::string nodename);
+
+    /// Get NodeName for this client
+    /// @return NodeName in string
+    std::string getNodeName() const;
 
     /// Gets current user's home directory
     /// @return Home directory as string
