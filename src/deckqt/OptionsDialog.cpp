@@ -56,6 +56,7 @@ OptionsDialog::OptionsDialog(deck::MainPlayer* mainplayer, QWidget *parent) :
 
 OptionsDialog::~OptionsDialog()
 {
+    // Free dynamically allocated objects
     delete genericoptions_;
     genericoptions_ = 0;
 

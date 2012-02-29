@@ -13,12 +13,17 @@ class QSplitter;
 class DatabaseWidget;
 class PlayListWidget;
 
+/// Class for Main Window of the application
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
     
 public:
+    /// Constructor for MainWindow
+    /// @param parent Parent widget
     explicit MainWindow(QWidget *parent = 0);
+
+    /// Destructor
     ~MainWindow();
     
 private slots:

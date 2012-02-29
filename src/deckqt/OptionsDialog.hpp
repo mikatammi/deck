@@ -15,6 +15,7 @@ class GenericOptionsWidget;
 class DatabaseOptionsWidget;
 class PeerOptionsWidget;
 
+/// Class for Options Dialog
 class OptionsDialog : public QDialog
 {
     Q_OBJECT

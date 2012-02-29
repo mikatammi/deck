@@ -8,6 +8,7 @@ namespace Ui {
 class PeerOptionsWidget;
 }
 
+/// Class for Peer Options tab in Options Dialog
 class PeerOptionsWidget : public QWidget
 {
     Q_OBJECT

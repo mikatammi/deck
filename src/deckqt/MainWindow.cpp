@@ -22,23 +22,26 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui_->setupUi(this);
 
-    // Splitter t
+    // Add new splitter for database and playlist widgets
     splitter_ = new QSplitter(this);
 
+    // Create database and playlist widgets
     databasewidget_ = new DatabaseWidget(this);
     playlistwidget_ = new PlayListWidget(this);
 
+    // Add widgets to splitter
     splitter_->addWidget(databasewidget_);
     splitter_->addWidget(playlistwidget_);
 
     splitter_->setLineWidth(10);
 
+    // Create new layout and add splitter to it
     layout_ = new QVBoxLayout();
     layout_->addWidget(splitter_);
 
     ui_->centralwidget->setLayout(layout_);
 
-
+    // Add control widget tool bar
     QToolBar * controltoolbar = new QToolBar("Control Tool Bar", this);
 
     TrackControlWidget * controlwidget = new TrackControlWidget(controltoolbar);
@@ -46,15 +49,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
     addToolBar(Qt::TopToolBarArea, controltoolbar);
 
+    // Create instance of MainPlayer
     mainplayer_ = new deck::MainPlayer();
 
     Q_ASSERT(mainplayer != 0);
 
+    // Connect signal for action opening options dialog
     connect(ui_->actionOptions, SIGNAL(triggered()), SLOT(showOptionsDialog()));
 }
 
 MainWindow::~MainWindow()
 {
+    // Free dynamically allocated objects
     delete mainplayer_;
     mainplayer_ = 0;
 
@@ -70,6 +76,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::showOptionsDialog()
 {
+    // Show options dialog
     OptionsDialog options(mainplayer_);
     options.exec();
 }
