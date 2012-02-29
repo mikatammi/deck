@@ -23,10 +23,11 @@ OptionsDialog::OptionsDialog(deck::MainPlayer* mainplayer, QWidget *parent) :
 {
     ui_->setupUi(this);
 
+    deck::Settings* s = mainplayer_->getSettings();
+
     // Conversion from std::set<std::string> to QSet<QString>
     QSet <QString> database_selected_dirs;
-    BOOST_FOREACH(std::string str,
-                  mainplayer_->getSettings()->getDatabaseDirectories())
+    BOOST_FOREACH(std::string str, s->getDatabaseDirectories())
     {
         database_selected_dirs.insert(QString(str.c_str()));
     }
@@ -35,6 +36,9 @@ OptionsDialog::OptionsDialog(deck::MainPlayer* mainplayer, QWidget *parent) :
     genericoptions_ = new GenericOptionsWidget(this);
     databaseoptions_ = new DatabaseOptionsWidget(database_selected_dirs, this);
     peeroptions_ = new PeerOptionsWidget(this);
+
+    // Set Peer Options
+    peeroptions_->setNodeName(s->getNodeName().c_str());
 
     // Add new widgets as tabs
     ui_->tabWidget->addTab(genericoptions_, tr("Generic"));
@@ -75,6 +79,7 @@ void OptionsDialog::onOK()
 
 void OptionsDialog::onApply()
 {
+    // Save database options
     deck::Settings* s = mainplayer_->getSettings();
 
     // Conversion from QSet<QString> to std::set<std::string>
@@ -85,6 +90,9 @@ void OptionsDialog::onApply()
     }
 
     s->setDatabaseDirectories(selecteddirs);
+
+    // Save peer options
+    s->setNodeName(peeroptions_->getNodeName().toStdString());
 
     // Save settings
     s->save(s->getConfigDefaultLocation());

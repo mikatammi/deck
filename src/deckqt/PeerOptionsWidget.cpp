@@ -3,12 +3,22 @@
 
 PeerOptionsWidget::PeerOptionsWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::PeerOptionsWidget)
+    ui_(new Ui::PeerOptionsWidget)
 {
-    ui->setupUi(this);
+    ui_->setupUi(this);
 }
 
 PeerOptionsWidget::~PeerOptionsWidget()
 {
-    delete ui;
+    delete ui_;
+}
+
+void PeerOptionsWidget::setNodeName(QString nodename)
+{
+    ui_->nodeName->setText(nodename);
+}
+
+QString PeerOptionsWidget::getNodeName() const
+{
+    return ui_->nodeName->text();
 }
