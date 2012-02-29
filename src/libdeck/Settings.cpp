@@ -154,18 +154,18 @@ std::set <std::string> Settings::getDatabaseDirectories() const
     // Lock mutex for this class instance
     boost::lock_guard <boost::mutex> lock(settings_mutex_);
 
+    std::set <std::string> retval;
+
     if(settings_proto_ != 0)
     {
-        std::set <std::string> retval;
-
         // Read strings to return value set
         BOOST_FOREACH(std::string dir, settings_proto_->database_directories())
         {
             retval.insert(dir);
         }
-
-        return retval;
     }
+
+    return retval;
 }
 
 std::string Settings::getHomeDir()
