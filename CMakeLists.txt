@@ -5,6 +5,16 @@ set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -pedantic" )
 
 ENABLE_TESTING()
 
+set(BOOSTCOMPONENTS system filesystem thread)
+
+if(NOT ANDROID)
+    set(BOOSTCOMPONENTS ${BOOSTCOMPONENTS} unit_test_framework)
+endif()
+
+set(Boost_USE_MULTITHREADED ON)
+find_package(Boost 1.45.0 REQUIRED COMPONENTS ${BOOSTCOMPONENTS})
+include_directories(${Boost_INCLUDE_DIRS})
+
 if(DEFINED ANDROID)
     add_definitions(-DANDROID)
 endif()

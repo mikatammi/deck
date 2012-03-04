@@ -3,15 +3,6 @@ cmake_minimum_required (VERSION 2.6)
 find_package(Protobuf 2.3.0 REQUIRED)
 include_directories(${PROTOBUF_INCLUDE_DIR})
 
-set(BOOSTCOMPONENTS system filesystem thread)
-
-if(NOT ANDROID)
-    set(BOOSTCOMPONENTS ${BOOSTCOMPONENTS} unit_test_framework)
-endif()
-
-set(Boost_USE_MULTITHREADED ON)
-find_package(Boost 1.45.0 REQUIRED COMPONENTS ${BOOSTCOMPONENTS})
-include_directories(${Boost_INCLUDE_DIRS})
 
 if(NOT ANDROID)
     include(FindPkgConfig)
@@ -103,14 +94,20 @@ set(LIBDECK_SRCS
     ${LIBDECK_PROTOS}
 )
 
-# Protobuf generation
-PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${LIBDECK_PROTOS})
-
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${TAGLIB_INCLUDE_DIRS})
+
+# Protobuf generation
+PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${LIBDECK_PROTOS})
 
 add_library(deck SHARED ${LIBDECK_SRCS} ${PROTO_SRCS} ${PROTO_HDRS})
 
 target_link_libraries(deck ${Boost_LIBRARIES})
 target_link_libraries(deck ${PROTOBUF_LIBRARY})
+
+# TODO: FIX: Mac workaround, replace with more sophisticated solution
+if(APPLE)
+target_link_libraries(deck ${TAGLIB_LDFLAGS})
+else()
 target_link_libraries(deck ${TAGLIB_LIBRARIES})
+endif()
