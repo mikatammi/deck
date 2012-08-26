@@ -3,7 +3,7 @@
 #include <boost/assert.hpp>
 #include <boost/thread/locks.hpp>
 #include <boost/foreach.hpp>
-#include <boost/filesystem/v3/operations.hpp>
+#include <boost/filesystem.hpp>
 
 #include <fstream>
 
@@ -89,8 +89,16 @@ void Settings::load(const std::string& filename)
     // Initialize settings proto
     internal_init(false);
 
+    std::string fname = filename;
+
+    // If filename is not given, use default location
+    if(fname == "")
+    {
+        fname = getConfigDefaultLocation();
+    }
+
     // Open settings file input stream
-    std::ifstream settings_file(filename.c_str(),
+    std::ifstream settings_file(fname.c_str(),
                                 std::ifstream::in | std::ifstream::binary);
 
 
@@ -115,12 +123,20 @@ void Settings::save(const std::string& filename)
     // Lock mutex for this class instance
     boost::lock_guard <boost::mutex> lock(settings_mutex_);
 
+    std::string fname = filename;
+
+    // If filename is not given, use default location
+    if(fname == "")
+    {
+        fname = getConfigDefaultLocation();
+    }
+
     if(settings_proto_ != 0)
     {
         createConfigDir();
 
         // Opening settings file output stream
-        std::ofstream settings_file(filename.c_str(),
+        std::ofstream settings_file(fname.c_str(),
                                     std::ofstream::out | std::ofstream::binary);
 
         // Write file to stream only if it is opened
@@ -254,7 +270,7 @@ std::string Settings::getConfigDir()
 #if defined(ANDROID)
     // TODO
 #elif defined(APPLE)
-    retval = getHomeDir() + "/Libraries/Deck";
+    retval = getHomeDir() + "/Library/Deck";
 #elif defined(LINUX) or defined(UNIX)
     retval = getHomeDir() + "/.deck";
 #elif defined(WINDOWS)
@@ -269,12 +285,14 @@ std::string Settings::getConfigDir()
 
 void Settings::createConfigDir()
 {
-    boost::filesystem3::create_directory(getConfigDir());
+    boost::filesystem::create_directory(getConfigDir());
 }
 
 std::string Settings::getConfigDefaultLocation()
 {
-    return getConfigDir() + "/settings.bin";
+    std::string retval = getConfigDir() + "/settings.bin";
+    std::cout << retval << std::endl;
+    return retval;
 }
 
 }

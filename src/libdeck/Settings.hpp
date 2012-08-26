@@ -28,11 +28,11 @@ public:
     void clear();
 
     /// Loads settings from disk
-    /// @param filename File for settings
+    /// @param filename File for settings. If empty, uses default location.
     void load(const std::string& filename = "");
 
     /// Flushes settings to disk
-    /// @param filename File for settings
+    /// @param filename File for settings. If empty, uses default location.
     void save(const std::string& filename = "");
 
     /// Sets directories to be scanned to database
