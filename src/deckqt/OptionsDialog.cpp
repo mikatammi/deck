@@ -96,5 +96,5 @@ void OptionsDialog::onApply()
     s->setNodeName(peeroptions_->getNodeName().toStdString());
 
     // Save settings
-    s->save(s->getConfigDefaultLocation());
+    s->save();
 }
