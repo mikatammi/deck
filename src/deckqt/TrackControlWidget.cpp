@@ -1,8 +1,6 @@
 #include "TrackControlWidget.hpp"
 #include "ui_TrackControlWidget.h"
 
-#include <phonon/MediaObject>
-
 TrackControlWidget::TrackControlWidget(QWidget *parent) :
     QWidget(parent),
     ui_(new Ui::TrackControlWidget)
