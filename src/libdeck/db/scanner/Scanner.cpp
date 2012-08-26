@@ -1,8 +1,5 @@
-#define BOOST_FILESYSTEM_VERSION 2
-
 #include "Scanner.hpp"
 
-#include <boost/filesystem/operations.hpp>
 #include <boost/foreach.hpp>
 
 #include <taglib/fileref.h>
