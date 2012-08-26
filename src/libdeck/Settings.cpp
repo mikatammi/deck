@@ -291,7 +291,6 @@ void Settings::createConfigDir()
 std::string Settings::getConfigDefaultLocation()
 {
     std::string retval = getConfigDir() + "/settings.bin";
-    std::cout << retval << std::endl;
     return retval;
 }
 
