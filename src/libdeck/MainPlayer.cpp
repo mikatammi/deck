@@ -28,6 +28,8 @@ MainPlayer::MainPlayer() :
     databasemanager_ = new db::DatabaseManager();
     activeplaylist_ = new db::PlayList();
 
+    databasemanager_->setScanDirectories(settings_->getDatabaseDirectories());
+
     BOOST_ASSERT(audiomanager_ != 0);
     BOOST_ASSERT(connectionmanager_ != 0);
     BOOST_ASSERT(databasemanager_ != 0);
