@@ -1,6 +1,9 @@
 #ifndef DATABASEMANAGER_HPP
 #define DATABASEMANAGER_HPP
 
+#include "scanner/ScannerManager.hpp"
+#include <set>
+
 namespace deck {
 namespace db {
 
@@ -17,9 +20,16 @@ public:
     /// TODO: Fix types
     void /* TrackSet */ query( /* Query query */ );
 
+    /// Set directories for DatabaseManager to watch
+    /// @param directories List of directory strings
+    void setScanDirectories(const std::set<std::string> &directories);
+
+
 private:
     DatabaseManager(const DatabaseManager&);
     DatabaseManager& operator= (const DatabaseManager &);
+
+    scanner::ScannerManager scannermanager_;
 
 };
 
