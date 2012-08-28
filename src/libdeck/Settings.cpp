@@ -285,7 +285,9 @@ std::string Settings::getConfigDir()
 
 void Settings::createConfigDir()
 {
+    // Create directories for configuration and database files
     boost::filesystem::create_directory(getConfigDir());
+    boost::filesystem::create_directory(getConfigDir() + "/db");
 }
 
 std::string Settings::getConfigDefaultLocation()
