@@ -5,6 +5,8 @@
 
 #include <boost/thread/locks.hpp>
 
+#include <iostream>
+
 namespace deck {
 namespace db {
 namespace scanner {
@@ -90,6 +92,8 @@ bool ScannerTrackInfo::read(const FileInfo& fileinfo)
     m.genre = f.tag()->genre().to8Bit();
     m.length = f.audioProperties()->length();
     m.bitrate = f.audioProperties()->bitrate();
+
+    std::cout << m.artist << " - " << m.title << std::endl;
 
     metainfo_ = m;
 
