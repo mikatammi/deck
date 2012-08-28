@@ -4,7 +4,8 @@ namespace deck {
 namespace db {
 
 Album::Album(const std::string &name):
-    name_(name)
+    name_(name),
+    tracks_()
 {
 }
 

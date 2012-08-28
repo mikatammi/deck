@@ -2,6 +2,7 @@
 #define ALBUM_HPP
 
 #include <string>
+#include <vector>
 
 namespace deck {
 namespace db {
@@ -28,6 +29,7 @@ private:
     Album& operator= (const Album&);
 
     std::string name_;
+    std::vector <Track*> tracks_;
 };
 
 }
