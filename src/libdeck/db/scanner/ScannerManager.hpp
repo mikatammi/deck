@@ -2,6 +2,7 @@
 #define SCANNERMANAGER_HPP
 
 #include <string>
+#include <set>
 #include <list>
 
 namespace deck {
@@ -22,10 +23,10 @@ public:
 
     /// Set directories for ScannerManager to watch
     /// @param directories List of directory strings
-    void setScanDirectories(const std::list <std::string>& directories);
+    void setScanDirectories(const std::set <std::string>& directories);
 
     /// Get directories which are currently being scanned
-    std::list <std::string> getScanDirectories() const;
+    std::set <std::string> getScanDirectories() const;
 
 private:
     void stopAndDeleteScanners();
@@ -33,7 +34,7 @@ private:
     ScannerManager(const ScannerManager&);
     ScannerManager& operator= (const ScannerManager&);
 
-    std::list <std::string> scan_directories_;
+    std::set <std::string> scan_directories_;
     std::list <Scanner*> scanners_;
 };
 

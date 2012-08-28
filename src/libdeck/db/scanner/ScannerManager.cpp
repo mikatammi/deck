@@ -19,8 +19,8 @@ ScannerManager::~ScannerManager()
     stopAndDeleteScanners();
 }
 
-void ScannerManager::setScanDirectories(const std::list <std::string>&
-                                        directories)
+void ScannerManager::setScanDirectories(
+        const std::set<std::string> &directories)
 {
     // Stop existing scanners
     stopAndDeleteScanners();
@@ -40,7 +40,7 @@ void ScannerManager::setScanDirectories(const std::list <std::string>&
     }
 }
 
-std::list <std::string> ScannerManager::getScanDirectories() const
+std::set <std::string> ScannerManager::getScanDirectories() const
 {
     // Returns list of directories currently being scanned
     return scan_directories_;
