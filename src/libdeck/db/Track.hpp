@@ -2,6 +2,7 @@
 #define TRACK_HPP
 
 #include <vector>
+#include <string>
 
 namespace deck {
 namespace db {
